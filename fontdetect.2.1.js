@@ -43,6 +43,7 @@ fontdetect = function()
 	// The private parts
 	var _isInitialized = false;
 	var _aFallbackFonts = ['serif', 'sans-serif', 'monospace', 'cursive', 'fantasy'];
+	var span = null;
 	
 	function _init ()
 	{
@@ -52,18 +53,24 @@ fontdetect = function()
 
 		_isInitialized = true;
 
-		$('body > :first-child').before(
-			'<div id="fontdetectHelper"><span>abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</span></div>'
-		);
-		$('#fontdetectHelper').css({
-			'position': 'absolute',
-			'visibility': 'hidden',
-			'top': '-200px',
-			'left': '-100000px',
-			'width': '100000px',
-			'height': '200px',
-			'font-size': '100px'
-		});
+		var body = document.body;
+		var firstChild = document.body.firstChild;
+
+		var div = document.createElement('div');
+		div.id = 'fontdetectHelper';
+		span = document.createElement('span');
+		span.innerText = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+		div.appendChild(span);
+
+		body.insertBefore(div,firstChild);
+
+		div.style.position   = 'absolute';
+		div.style.visibility = 'hidden';
+		div.style.top        = '-200px';
+		div.style.left       = '-100000px';
+		div.style.width      = '100000px';
+		div.style.height     = '200px';
+		div.style.fontSize   = '100px';
 	}
 
 	
@@ -160,9 +167,8 @@ fontdetect = function()
 			
 			for(var ix = 0; ix < _aFallbackFonts.length; ++ix)
 			{
-				var $helperSpan = $('#fontdetectHelper > SPAN');
-				$helperSpan.css('font-family', p_cssFontName + ',' + _aFallbackFonts[ix]);
-				wThisFont = $helperSpan.width();
+				span.style.fontFamily = p_cssFontName + ',' + _aFallbackFonts[ix];
+				wThisFont = span.offsetWidth;
 				if (ix > 0 && wThisFont != wPrevFont)
 				{// This iteration's font was different than the previous iteration's font, so it must
 				//  have fallen back on a generic font. So our font must not exist.
