@@ -59,7 +59,7 @@ fontdetect = function()
 		var div = document.createElement('div');
 		div.id = 'fontdetectHelper';
 		span = document.createElement('span');
-		span.innetText = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+		span.innerText = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 		div.appendChild(span);
 
 		body.insertBefore(div,firstChild);
