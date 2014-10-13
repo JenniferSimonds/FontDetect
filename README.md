@@ -1,11 +1,12 @@
 #FontDetect
-Current version: 3.0.1
+Current version: **3.0.1**
 
 The FontDetect JavaScript library provides a singleton class that can tell you which font is being used for a particular element, or detect whether a font face has been loaded in your browser. It can also poll for the font being loaded and call a callback function when it loads - or another callback if it doesn't load within a timeout period.
 
 ##How to Use FontDetect
-The first step is to download the current version of fontdetect.zip and extract the script file (fontdetect.js or fontdetect.min.js). It can be placed after the `</body>` tag if you wish.
+The first step is to download the [current version of fontdetect.zip](http://www.atomicjetpacks.com/projects/fontdetect/fontdetect.zip) and extract the script file (fontdetect.js or fontdetect.min.js). (Or clone this repo, of course.)
 
+The script tag can be placed after the `</body>` if you wish.
 
 ```<script type='text/javascript' src='/path/to/fontdetect.js'></script>```
 
@@ -24,7 +25,7 @@ if (!FontDetect.isFontLoaded('Trebuchet MS'))
 }
 ```
 
-The `FontDetect.whichFont` method is more useful: It tells you exactly which font in the font stack is being used for a given element. In other words, it tells you what getComputedStyle(element).getPropertyValue("font-family") should return, but doesn't. (Or in jQuery, what you would expect $(element).css("font-family") to return.)
+The `FontDetect.whichFont` method is more useful: It tells you exactly which font in the font stack is being used for a given element. In other words, it tells you what `getComputedStyle(element).getPropertyValue("font-family")` should return but doesn't. (Or in jQuery, what you would expect `$(element).css("font-family")` to return.)
 
 ```
 <style>
@@ -51,14 +52,14 @@ $(document).ready(function(){
     FontDetect.onFontLoaded ('MyCoolFont', onMyCoolFontLoaded, onItDidntLoad, {msTimeout: 3000});
 });
 
-function onMyCoolFontLoaded (p_fontName)
+function onMyCoolFontLoaded (fontname)
 {
-    alert (p_fontName + ' looks good!');
+    alert (fontname + ' looks good!');
 }
 
-function onItDidntLoad (p_fontName)
+function onItDidntLoad (fontname)
 {
-    alert (p_fontName + ' didn\'t load within 3 seconds');
+    alert (fontname + ' didn\'t load within 3 seconds');
 }
 ```
 
@@ -66,7 +67,7 @@ When you call `FontDetect.onFontLoaded`, you can specify how often to poll for t
 
 ##Try it out
 
-[The original FontDetect project page](http://www.atomicjetpacks.com/fontdetect/how-to-detect-if-a-font-really-loaded) has a nifty demo of the library in action. It's been updated to use the latest version of the library.
+[The original FontDetect project page](http://www.atomicjetpacks.com/project/fontdetect/how-to-detect-if-a-font-really-loaded) has a nifty demo of the library in action. It's been updated to use the latest version of the library.
 
 ##API Reference
 ###isFontLoaded
@@ -76,7 +77,7 @@ This method determines whether a given font is loaded.
 
 Required params | Type | Description
 :-----|:-----|:-----
-fontname | string	The name of the font to check for.
+fontname | string | The name of the font to check for.
 
 Returns|Description
 :-----|:-----
@@ -85,8 +86,8 @@ boolean | true if the font has been loaded, else false if it didn't load or isn'
 ###onFontLoaded
 **FontDetect.onFontLoaded (fontname, onLoad, onFail, {msInterval: ms between polls , msTimeout: how long to keep polling} )**
 
-This method polls for the existence of a font in your browser. When a font gets loaded or a timeout period has passed, it will call the specified callback function.
-####Required parameters
+This method polls for the existence of a font in your browser. When a font gets loaded or a timeout period has passed, it will call the specified callback function(s).
+
 Required params|Type|Description
 :-----|:-----|:-----
 fontname | string | The fontname of the webfont you want to detect.
@@ -116,8 +117,8 @@ string | The name of the font that is being used for this element.
 If you've fixed a bug or came up with a great addition to the API, I welcome your code submissions! To make things smoother, please follow these guidelines:
 
 - Create an Issue for the bug or feature you're submitting, if there isn't one already.
+- If someone is proposing a new feature or a change to the existing API, please chime in in the comments for that issue. It's important that the library evolves in a way that the userbase feels is useful and straightforward to use.
 - Submit to the latest Stage branch, not Master. This way we can test it & possibly integrate more than one bugfix or feature as a group.
 - The project's coding convention is for Allman-style bracing, where { and } are in the same column as their controlling statement.
 - Please use Hungarian notation for internal variables, and prefix any parameters with "p_". Use the existing code as a guide for what prefixes to use. 
 - Don't assume that jQuery is loaded. If it's a jQuery-specific feature, at least make sure your code degrades gracefully if it's not there. You can test for jQuery with `if (window.jQuery)`. (See _getCss for an example of how to handle this.)
-- If someone is proposing a new feature or a change to the existing API, please chime in in the comments for that issue. It's important that the library evolves in a way that the userbase feels is useful and straightforward to use.
