@@ -99,6 +99,7 @@ Optional named params in { }|Type|Description
 :-----|:-----|:-----
 msInterval | integer | How many milliseconds between polling for the font. Default is 100ms.
 msTimeout | integer | How many milliseconds to keep polling before giving up & calling the onFail callback. Default is 2000ms.
+eLang | string | Which font language to use. Default = 'en'. Currently available languages are English (en) and Farsi (fa).
 
 ###whichFont
 **FontDetect.whichFont (element)**
